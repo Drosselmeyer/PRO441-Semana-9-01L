@@ -187,7 +187,6 @@ public class RegistroAnimal {
 		tblRegistroAnimales = new JTable();
 		tblRegistroAnimales.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"Perro", "Canis", "CCanino", "23", "40"},
 			},
 			new String[] {
 				"Nombre", "Nombre Cientifico", "Familia", "Altura", "Peso"
