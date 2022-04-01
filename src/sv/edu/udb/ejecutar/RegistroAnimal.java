@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -132,18 +134,29 @@ public class RegistroAnimal {
 			public void actionPerformed(ActionEvent e) {
 				Animal animal = new Animal();
 				
-				//Capturamos la información del formulario
-				animal.setNombre(txtNombre.getText());
-				animal.setNombreCientifico(txtNombreCientifico.getText());
-				animal.setFamilia(txtFamilia.getText());
-				animal.setAltura(Integer.parseInt(txtAltura.getText()));
-				animal.setPeso(Float.parseFloat(txtPeso.getText()));
+				if(validarNombre()&&validarNombreC()
+					&&validarFamilia()&&validarAltura()
+					&&validarPeso())
+				{
+					
+					JOptionPane.showMessageDialog(null,
+							"Ingreso de datos");
+					//Capturamos la información del formulario
+					animal.setNombre(txtNombre.getText());
+					animal.setNombreCientifico(txtNombreCientifico.getText());
+					animal.setFamilia(txtFamilia.getText());
+					animal.setAltura(Integer.parseInt(txtAltura.getText()));
+					animal.setPeso(Float.parseFloat(txtPeso.getText()));
+					
+					//La información capturada se manda a la lista
+					registroAnimales.add(animal);
+					
+					//Funcion para limpiar campos
+					limpiarCampos();
+				}
 				
-				//La información capturada se manda a la lista
-				registroAnimales.add(animal);
-				
-				//Funcion para limpiar campos
-				limpiarCampos();				
+				JOptionPane.showMessageDialog(null,
+						"Me encuentro aca");
 			}
 		});
 		
@@ -212,5 +225,95 @@ public class RegistroAnimal {
 		txtFamilia.setText("");
 		txtAltura.setText("");
 		txtPeso.setText("");
+	}
+	
+	private boolean validarNombre() {
+		try {
+			Float.parseFloat(txtNombre.getText());
+			
+			JOptionPane.showMessageDialog(null,
+					"Por favor ingrese un nombre valido");
+			
+			return false;
+		}catch(NumberFormatException ex){
+			System.out.println(ex.toString());
+			JOptionPane.showMessageDialog(null,
+					"Nombre esta correcto");
+			return true;
+		}
+	}
+	
+	private boolean validarNombreC() {
+		try {
+			Float.parseFloat(txtNombreCientifico.getText());
+			
+			JOptionPane.showMessageDialog(null,
+					"Por favor ingrese un nombre cientifico valido");
+			
+			return false;
+		}catch(NumberFormatException ex){
+			System.out.println(ex.toString());
+			JOptionPane.showMessageDialog(null,
+					"Nombre Cientifico esta correcto");
+			return true;
+		}
+	}
+	
+	private boolean validarFamilia() {
+		try {
+			Float.parseFloat(txtFamilia.getText());
+			
+			JOptionPane.showMessageDialog(null,
+					"Por favor ingrese una familia valida");
+			
+			return false;
+		}catch(NumberFormatException ex){
+			System.out.println(ex.toString());
+			JOptionPane.showMessageDialog(null,
+					"Familia esta correcto");
+			return true;
+		}
+	}
+	
+	private boolean validarAltura() {
+		try {
+			//Variable temporal
+			float temp;
+			temp = Float.parseFloat(txtAltura.getText());
+			
+			if(temp<=0) {
+				JOptionPane.showMessageDialog(null,
+						"Ingrese una altura positiva");
+				return false;
+			}
+			
+			return true;
+		}catch(NumberFormatException ex) {
+			System.out.println(ex.toString());
+			JOptionPane.showMessageDialog(null,
+					"Ingrese un número por favor");
+			return false;
+		}
+	}
+	
+	private boolean validarPeso() {
+		try {
+			//Variable temporal
+			float temp;
+			temp = Float.parseFloat(txtPeso.getText());
+			
+			if(temp<=0) {
+				JOptionPane.showMessageDialog(null,
+						"Ingrese un peso positivo");
+				return false;
+			}
+			
+			return true;
+		}catch(NumberFormatException ex) {
+			System.out.println(ex.toString());
+			JOptionPane.showMessageDialog(null,
+					"Ingrese un número por favor");
+			return false;
+		}
 	}
 }
