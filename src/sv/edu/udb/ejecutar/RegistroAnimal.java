@@ -32,6 +32,7 @@ public class RegistroAnimal {
 	private JTextField txtPeso;
 	private ArrayList<Animal> registroAnimales = new ArrayList<Animal>();
 	private JTable tblRegistroAnimales;
+	private Conexion db = new Conexion();
 
 	/**
 	 * Launch the application.
@@ -148,6 +149,11 @@ public class RegistroAnimal {
 					animal.setAltura(Integer.parseInt(txtAltura.getText()));
 					animal.setPeso(Float.parseFloat(txtPeso.getText()));
 					
+					//Agregamos a la base de datos la información
+					if(db.createAnimal(animal)) {
+						JOptionPane.showMessageDialog(null, "Valor agregado correctamente");
+					}
+					
 					//La información capturada se manda a la lista
 					registroAnimales.add(animal);
 					
@@ -245,12 +251,19 @@ public class RegistroAnimal {
 	
 	private boolean validarNombreC() {
 		try {
-			Float.parseFloat(txtNombreCientifico.getText());
+			if(txtNombreCientifico.getText() != null) {
+				Float.parseFloat(txtNombreCientifico.getText());
+				
+				JOptionPane.showMessageDialog(null,
+						"Por favor ingrese un nombre cientifico valido");
+				return false;
+			}
+			else {
+				JOptionPane.showMessageDialog(null,
+						"Por favor ingrese un nombre cientifico");
+				return false;
+			}
 			
-			JOptionPane.showMessageDialog(null,
-					"Por favor ingrese un nombre cientifico valido");
-			
-			return false;
 		}catch(NumberFormatException ex){
 			System.out.println(ex.toString());
 			JOptionPane.showMessageDialog(null,
